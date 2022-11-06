@@ -6,7 +6,7 @@ import os
 
 if __name__ == '__main__':
     data_dir = os.path.join(DATA_DIR, "ECGRDVQ_DS")
-    cache_path = os.path.join(DATA_DIR, "ECGRDVQ_CSV")
+    cache_path = os.path.join(DATA_DIR, "ECGRDVQ")
     csv_only = True
     arrays_keys = (
         'rdr_index',
