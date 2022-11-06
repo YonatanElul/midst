@@ -500,7 +500,7 @@ class BaseTrainer(ABC):
         return losses, accuracies
 
 
-class ConcurrentDynamicsTrainer(BaseTrainer):
+class InterrelatedDynamicsTrainer(BaseTrainer):
     """
     A trainer for concurrent-dynamics related experiments and models.
     """
@@ -707,7 +707,7 @@ class ConcurrentDynamicsTrainer(BaseTrainer):
         return loss.item(), accuracy.item()
 
 
-class ECGRDVQTrainer(ConcurrentDynamicsTrainer):
+class LQTSTrainer(InterrelatedDynamicsTrainer):
     """
     A trainer used specifically for the medication effects experiments done on the
      ECGEDVQ dataset

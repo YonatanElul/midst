@@ -10,7 +10,7 @@ import numpy as np
 seeds = (0, 7, 42, 8783, 888888)
 
 # Define the log dir
-m_systems = 16
+m_systems = 8
 noise_dist = None
 attractor_types = ('lorenz', )
 logs_dir_ = os.path.join(DATA_DIR, 'LorenzAttractors')
