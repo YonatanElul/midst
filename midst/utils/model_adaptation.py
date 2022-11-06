@@ -1,4 +1,4 @@
-from midst.models.midst import MIDST
+from midst.models.midst_model import MIDST
 
 import torch
 

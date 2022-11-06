@@ -5,7 +5,7 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 from datetime import datetime
 from midst import DATA_DIR, LOGS_DIR
-from midst.models.midst import MIDST
+from midst.models.midst_model import MIDST
 from midst.utils.loggers import Logger
 from midst.optim.optim import Optimizer
 from midst.losses.losses import ModuleLoss, MASELoss
