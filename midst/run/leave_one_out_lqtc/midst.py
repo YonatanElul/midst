@@ -4,8 +4,8 @@ os.environ['CUDA_DEVICE_ORDER'] = 'PCI_BUS_ID'
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 from datetime import datetime
-from midst.models.midst import MIDST
 from midst import DATA_DIR, LOGS_DIR
+from midst.models.midst import MIDST
 from midst.utils.loggers import Logger
 from midst.optim.optim import Optimizer
 from midst.utils.trainers import LQTSTrainer

@@ -9,7 +9,9 @@ setup(
     name='midst',
     version='1.0',
     description=(
-        'This is the official implementation of the code used in the paper "Data-Driven Modelling of Interrelated Dynamical Systems"'),
+        'This is the official implementation of the code used in the paper '
+        '"Data-Driven Modelling of Interrelated Dynamical Systems"'
+    ),
     author='Yonatan Elul',
     author_email='johnneye@campus.technion.ac.il',
     url='https://github.com/YonatanElul/midst.git',
@@ -22,7 +24,7 @@ setup(
     ],
     package_dir={'midst': os.path.join(cwd, 'midst')},
     packages=find_packages(
-        exclude=['data', 'logs']
+        exclude=['data', 'logs'],
     ),
     install_requires=[
         'numpy',
