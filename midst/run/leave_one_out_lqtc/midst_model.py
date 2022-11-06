@@ -43,7 +43,7 @@ if __name__ == '__main__':
     os.makedirs(logs_dir, exist_ok=True)
 
     # Define the Datasets & Data loaders
-    data_dir = os.path.join(DATA_DIR, "ECGRDVQ")
+    data_dir = os.path.join(DATA_DIR, "ECGRDVQ_CSV")
     train_dir = os.path.join(data_dir, 'Train')
     val_dir = os.path.join(data_dir, 'Val')
     test_dir = os.path.join(data_dir, 'Test')
