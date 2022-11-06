@@ -26,12 +26,10 @@ if __name__ == '__main__':
     observable_dim = 64
     n_encoder_layers = 4
     l0_units = 64
-    residual_dynamics = False
     trajectory_length = 6
     prediction_horizon = 10
     date = str(datetime.today()).split()[0]
-    description = f"{'Residual_' if residual_dynamics else ''}{observable_dim}K"
-    experiment_name = f"LQTC_Leave1Out_JULE_{description}_{date}"
+    experiment_name = f"LQTC_Leave1Out_JULE_{observable_dim}K_{date}"
     logs_dir = os.path.join(LOGS_DIR, experiment_name)
     os.makedirs(logs_dir, exist_ok=True)
 
