@@ -29,5 +29,6 @@ In order to run the LQTC experiments:
 * Run the requested experiment from the scripts in: `midst\run\leave_one_out_lqtc`
 
 In order to run the SSH experiments:
-* Run the requested experiment from the scripts in: `midst\run\ssh`
+* Download the raw sst data from `https://downloads.psl.noaa.gov/Datasets/noaa.oisst.v2/` to the data dir at: `data\SSTV2`, specifically, we need the following files: `lsmask.nc, sst.mnmean.nc, sst.wkmean.1990-present.nc`
+* Run the requested experiment from the scripts in: `midst\run\sst`
 

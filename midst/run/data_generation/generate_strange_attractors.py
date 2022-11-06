@@ -13,7 +13,7 @@ seeds = (0, 7, 42, 8783, 888888)
 m_systems = 8
 noise_dist = None
 attractor_types = ('lorenz', )
-logs_dir_ = os.path.join(DATA_DIR, 'LorenzAttractors')
+logs_dir_ = os.path.join(DATA_DIR, 'Attractors')
 os.makedirs(logs_dir_, exist_ok=True)
 
 if __name__ == '__main__':
