@@ -273,6 +273,9 @@ class Attractors(ABC):
         elif dist['type'] == 'uniform':
             noise = np.random.uniform(low=dist['low'], high=dist['high'], size=size)
 
+        else:
+            noise = 0
+
         return noise
 
     def compute_trajectory(

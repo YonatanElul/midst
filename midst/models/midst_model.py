@@ -463,6 +463,9 @@ class BaseMIDST(nn.Module):
     def forward(self, x: Tensor) -> Dict:
         pass
 
+    def __call__(self, x: Tensor) -> Dict:
+        return self.forward(x)
+
 
 class MIDST(BaseMIDST):
     def __init__(

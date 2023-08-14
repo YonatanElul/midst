@@ -1,6 +1,6 @@
 # Implementation of the Consistent Koopman Auto-Encoder model, which was presented in:
 # Forecasting Sequential Data Using Consistent Koopman Autoencoders: https://arxiv.org/pdf/2003.02236.pdf
-# The code was taken from https://github.com/erichson/koopmanAE
+# This implementation is heavily based on the official implementation found at https://github.com/erichson/koopmanAE
 
 from torch import nn, Tensor
 from typing import Union, Dict
@@ -18,6 +18,10 @@ def gaussian_init_(n_units, std=1):
 
 
 class dynamics(nn.Module):
+    """
+    This class implements the forward dynamics operator
+    """
+
     def __init__(self, b, init_scale):
         super(dynamics, self).__init__()
         self.dynamics = nn.Linear(b, b, bias=False)
@@ -31,6 +35,9 @@ class dynamics(nn.Module):
 
 
 class dynamics_back(nn.Module):
+    """
+    This class implements the backward dynamics operator
+    """
     def __init__(self, b, omega):
         super(dynamics_back, self).__init__()
         self.dynamics = nn.Linear(b, b, bias=False)
@@ -42,6 +49,9 @@ class dynamics_back(nn.Module):
 
 
 class CK(nn.Module):
+    """
+    This is a complete (and accelerated) implementation of the Consistent Koopman algorithm
+    """
     def __init__(
             self,
             states_dim: int,
@@ -59,8 +69,29 @@ class CK(nn.Module):
             steps: int = 8,
             steps_back: int = 8,
             init_scale: float = 1,
-            simple_dynamics: bool = False,
+            simple_dynamics: bool = True,
     ):
+        """
+        The construction method of the CK Module
+
+        :param states_dim: Dimensionality of the state-space
+        :param observable_dim: Dimensionality of the latent observable-space
+        :param m_dynamics: How many Koopman operators to generate
+         (times 2, once for forward dynamics and once for backward dynamics)
+        :param n_layers_encoder: How many layers should the encoder and decoder networks should have
+        :param l0_units: Number of units in the first/last encoder/decoder layer
+        :param units_factor: By which factor to multiply the number of units every two consecutive layers
+        :param activation: The non-linear activation function to apply after each layer except for the last one
+        :param final_activation: The non-linear activation function to apply after the last layer (None means no activation)
+        :param norm: The normalization layer to use after each layer except for the last one
+        :param dropout: The rate of dropout to use at each encoder/decoder layer, except for the last ones
+        :param bias: Whether to use bias term at each encoder/decoder layer
+        :param k_prediction_steps: number of prediction steps to take at each call
+        :param steps: Number of forward steps to perform with the forward dynamics operator (for optimization)
+        :param steps_back: Number of forward steps to perform with the backward dynamics operator (for optimization)
+        :param init_scale: Initial scaling for the dynamical operators
+        :param simple_dynamics: Whether to use the accelerated implementation (True) or the original one (False)
+        """
         super(CK, self).__init__()
         self.steps = steps
         self.steps_back = steps_back

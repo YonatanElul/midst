@@ -11,7 +11,6 @@ class Snake(nn.Module):
 
     def __init__(self, a: float = 1.):
         """
-
         :param a: (float) The frequency of the periodic basis function
         """
 
@@ -47,25 +46,3 @@ class Swish(nn.Module):
 
     def __call__(self, x: Tensor) -> Tensor:
         return self.forward(x)
-
-
-class NLSq(nn.Module):
-    def __init__(self, alpha: float = 0.95):
-        super(NLSq, self).__init__()
-        self.nlsq_params = nn.parameter.Parameter(
-            nn.init.xavier_normal_(torch.zeros((5, 1))).type(torch.float32),
-            requires_grad=True,
-        )
-        self._alpha = alpha
-        self._c_coeff = ((8 * (3 ** 0.5)) / 9) * alpha
-
-    def __call__(self, x: Tensor) -> Tensor:
-        return self.forward(x)
-
-    def forward(self, x: Tensor) -> Tensor:
-        b = self.nlsq_params[1].exp()
-        d = self.nlsq_params[3].exp()
-        c = self._c_coeff * (b / d) * torch.tanh(self.nlsq_params[2])
-        z = self.nlsq_params[0] + (b * x) + (c / (1 + ((d * x) + self.nlsq_params[4]).pow(2)))
-
-        return z

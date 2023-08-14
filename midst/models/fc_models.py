@@ -1,7 +1,7 @@
 from abc import ABC
 from torch import Tensor
 from typing import Union
-from midst.models.activations import NLSq, Snake, Swish
+from midst.models.activations import Snake, Swish
 from midst.utils.defaults import MODELS_TENSOR_PREDICITONS_KEY, OTHER_KEY
 
 import torch
@@ -31,7 +31,7 @@ def get_activation_layer(activation: Union[str, dict] = 'relu') -> nn.Module:
     if dict is given uses the 'name' key to determine which activation function to
     use and the 'params' key should have a dict with the required parameters as a
     key-value pairs. Currently supported activations: 'relu', 'gelu', 'elu',
-    'hardshrink', 'leakyrelu', 'prelu', 'tanh', 'snake', 'nlsq', default = 'relu'
+    'hardshrink', 'leakyrelu', 'prelu', 'tanh', 'snake', default = 'relu'
 
     :return: (PyTorch Module) The activation layer.
     """
@@ -46,7 +46,6 @@ def get_activation_layer(activation: Union[str, dict] = 'relu') -> nn.Module:
         'prelu': nn.PReLU,
         'tanh': nn.Tanh,
         'snake': Snake,
-        'nlsq': NLSq,
         'swish': Swish,
     }
 
@@ -76,7 +75,7 @@ def get_normalization_layer(norm: dict) -> nn.Module:
     A utility method for defining and instantiating a PyTorch normalization layer.
 
     :param norm: (dict / None) Denotes the normalization layer to use with the FC layer.
-    The dict should contains at least two keys, 'name' for indicating the type of
+    The dict should contain at least two keys, 'name' for indicating the type of
     normalization to use, and 'params', which should also map to a dict with all
     required parameters for the normalization layer. At the minimum, the 'params' dict
     should define the 'num_channels' key to indicate the expected number of
@@ -131,9 +130,9 @@ def get_fc_layer(
     A utility method for generating a FC layer
 
     :param input_dim: (int) input dimension of the 2D matrices
-    (M for a N X M matrix)
+    (M for N X M matrix)
     :param output_dim: (int) output dimension of the 2D matrices
-     (M for a N X M matrix)
+     (M for N X M matrix)
     :param bias: (bool) whether to use a bias in the FC layer or not,
      default = False
     :param activation: (str / dict / None) non-linear activation function to apply.
@@ -597,6 +596,9 @@ class FCEncoderDecoder(nn.Module, ABC):
 
         return outputs
 
+    def __call__(self, x: Tensor) -> Tensor:
+        return self.forward(x)
+
 
 class EncoderDecoderPredictor(FCEncoderDecoder):
     """
@@ -750,6 +752,9 @@ class FCAE(nn.Module, ABC):
 
         return output
 
+    def __call__(self, x: Tensor) -> dict:
+        return self.forward(x)
+
 
 class MLP(nn.Module, ABC):
     """
@@ -885,6 +890,9 @@ class MLP(nn.Module, ABC):
 
         return out
 
+    def __call__(self, x: Tensor) -> Tensor:
+        return self.forward(x)
+
 
 class MCDropout(nn.Module):
     """
@@ -904,5 +912,8 @@ class MCDropout(nn.Module):
     def forward(self, x: Tensor) -> Tensor:
         self.train(True)
         return self._dropout(x)
+
+    def __call__(self, x: Tensor) -> Tensor:
+        return self.forward(x)
 
 

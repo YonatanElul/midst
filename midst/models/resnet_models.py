@@ -1,5 +1,5 @@
 # The implementation for the 1D-ResNet model was heavily based on https://github.com/hsd1503/resnet1d
-# The implementation for the 2D-ResNet model was heavily based on PyTorch's implementation
+# The implementation for the 2D-ResNet model was heavily based on PyTorch's official implementation
 # at https://pytorch.org/vision/stable/_modules/torchvision/models/resnet.html
 from midst.models.fc_models import MCDropout, get_activation_layer
 from midst.utils.defaults import MODELS_TENSOR_PREDICITONS_KEY, OTHER_KEY
@@ -821,8 +821,18 @@ class BasicBlock1D(nn.Module):
     ResNet Basic Block
     """
 
-    def __init__(self, in_channels, out_channels, kernel_size, stride, groups, downsample, use_bn, use_do,
-                 is_first_block=False):
+    def __init__(
+            self,
+            in_channels,
+            out_channels,
+            kernel_size,
+            stride,
+            groups,
+            downsample,
+            use_bn,
+            use_do,
+            is_first_block=False,
+    ):
         super(BasicBlock1D, self).__init__()
 
         self.in_channels = in_channels
@@ -875,17 +885,21 @@ class BasicBlock1D(nn.Module):
         if not self.is_first_block:
             if self.use_bn:
                 out = self.bn1(out)
+
             out = self.relu1(out)
             if self.use_do:
                 out = self.do1(out)
+
         out = self.conv1(out)
 
         # the second conv
         if self.use_bn:
             out = self.bn2(out)
+
         out = self.relu2(out)
         if self.use_do:
             out = self.do2(out)
+
         out = self.conv2(out)
 
         # if downsample, also downsample identity
@@ -942,6 +956,22 @@ class ResNet1D(nn.Module):
             use_bn: bool = True,
             use_do: bool = True,
     ):
+        """
+
+        :param in_channels: Numer of input channels
+        :param n_filters_first_layer: Number of units in the first layer
+        :param kernel_size: kernel size across layers
+        :param stride: stride across layers
+        :param groups: Number of groups
+        :param n_block: Number of blocks
+        :param output_dim: output dimensionality
+        :param prediction_steps: Prediction horizon
+        :param downsample_gap: Downsampling rate
+        :param increasefilter_gap: Downsampling rate when increasing kernel size
+        :param use_bn: Whether to use BatchNorm or not
+        :param use_do: Whether to use Dropout or not
+        """
+
         super(ResNet1D, self).__init__()
 
         self.n_block = n_block
