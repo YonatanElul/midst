@@ -20,7 +20,7 @@ setup(
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Private',
         'Topic :: Software Development :: Dynamical Systems Modelling',
-        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
     ],
     package_dir={'midst': os.path.join(cwd, 'midst')},
     packages=find_packages(

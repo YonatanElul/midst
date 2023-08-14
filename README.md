@@ -41,4 +41,5 @@ In order to run the SST experiments:
 * Run the appropriate experiment from the scripts in: `midst\run\sst`
 
 Each experiment will create its own logs directory in the logs directory of the project.
-In it, it will automatically log the results for the train/validation/test phases of each experiment
+In it, it will automatically log the results for the train/validation/test phases of each experiment.
+For example, the files 'eval_loss_1.pkl' and 'eval_acc_1.pkl' contains the loss and accuracy respectively.
