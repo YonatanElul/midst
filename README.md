@@ -40,3 +40,5 @@ In order to run the SST experiments:
 * Download the raw sst data from `https://downloads.psl.noaa.gov/Datasets/noaa.oisst.v2/` to the data dir at: `data\SSTV2`, specifically, we need the following files: `lsmask.nc, sst.mnmean.nc, sst.wkmean.1990-present.nc`
 * Run the appropriate experiment from the scripts in: `midst\run\sst`
 
+Each experiment will create its own logs directory in the logs directory of the project.
+In it, it will automatically log the results for the train/validation/test phases of each experiment
